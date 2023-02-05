@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-private Rigidbody2D rb2d;
+    private Rigidbody2D rb2d;
 
-public float speed = 25f;
-public float jumpForce = 750f;
+    public float speed = 25f;
+    public float jumpForce = 750f;
 
-public LayerMask groundLayer;
+    public Transform attackpoint;
+    public float attackRadius;
+    public LayerMask enemyLayer;
 
-private Animator anim;
+    public LayerMask groundLayer;
 
-private SpriteRenderer spRenderer;
+    private Animator anim;
 
-private bool isGround;
+    private SpriteRenderer spRenderer;
+
+    private bool isGround;
     
     void Start()
     {
@@ -45,35 +49,56 @@ private bool isGround;
         float velX = rb2d.velocity.x;
         float velY = rb2d.velocity.y;
 
-        if( velY > 0.5f ){ //velocityが上向きに働いていたらジャンプ中
+        if( velY > 0.5f )
+        { //velocityが上向きに働いていたらジャンプ中
             anim.SetBool("isJump",true);
         }
 
-        if( velY < -0.1f ){ //velocityが下向きに働いていたら落下中
+        if( velY < -0.1f )
+        { //velocityが下向きに働いていたら落下中
             anim.SetBool("isFall",true);
         }
 
         //一定速度以上にならないよう調整(Mathf.Abs = 絶対値)
-        if( Mathf.Abs(velX) > 5 ){
-            if( velX > 5.0f ){
+        if( Mathf.Abs(velX) > 5 )
+        {
+            if( velX > 5.0f )
+            {
                 rb2d.velocity = new Vector2( 5.0f , velY );
             }
-            if( velX < -5.0f ){
+            if( velX < -5.0f )
+            {
                 rb2d.velocity = new Vector2( -5.0f , velY );
             }
         }
 
        //スプライトの向きを変える
-        if(x < 0){
-            spRenderer.flipX = true;
-        }else if(x > 0){
-            spRenderer.flipX = false;
-            }
+        if(x < 0)
+            {spRenderer.flipX = true;}
 
+        else if(x > 0)
+         {spRenderer.flipX = false;}
+        
         rb2d.AddForce(Vector2.right * x * speed);
+
+        //攻撃
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Attack();
+        }
+        void Attack()
+        {
+            Debug.Log("攻撃");
+            Collider2D[] hitEnemys = Physics2D.OverlapCircleAll(attackpoint.position,attackRadius,enemyLayer);
+        }
+     void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackpoint.position,attackRadius);
+        }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         isGround = false;
 
@@ -81,9 +106,9 @@ private bool isGround;
 
         Vector2 groundPos =  //自分の立っているポジション
         new Vector2(
-         transform.position.x ,
-         transform.position.y
-        );
+            transform.position.x ,
+            transform.position.y
+            );
 
         //地面判定エリア
         Vector2 groundArea = new Vector2(0.5f , 0.4f);
@@ -110,16 +135,17 @@ private bool isGround;
         );
     }
 
-    void OnCollisionEnter2D( Collision2D col ){
-            if( col.gameObject.tag == "Damage"){
+    void OnCollisionEnter2D( Collision2D col )
+    {
+        if( col.gameObject.tag == "Damage" ){
 
-                anim.SetBool("Damage",true);
+            anim.SetBool("Damage",true);
 
-                Debug.Log("Damage");
-            }
-            else{
-               anim.SetBool ("Damage",false);
-                }
-            
+            Debug.Log("Damage");
         }
+        else{
+            anim.SetBool ("Damage",false);
+            }
+        
+    }
 }
