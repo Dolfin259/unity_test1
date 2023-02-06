@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
                 rb2d.velocity = new Vector2( -5.0f , velY );
             }
         }
+        rb2d.AddForce(Vector2.right * x * speed);
 
        //スプライトの向きを変える
         Vector3 localEulerAngles = transform.localEulerAngles;
@@ -84,13 +85,17 @@ public class Player : MonoBehaviour
         } 
          transform.localEulerAngles = localEulerAngles;
 
-        rb2d.AddForce(Vector2.right * x * speed);
-
         //攻撃
         void Attack()
         {
-            Debug.Log("攻撃");
             Collider2D[] hitEnemys = Physics2D.OverlapCircleAll(attackpoint.position, attackRadius, enemyLayer);
+
+            foreach (Collider2D hitEnemy in hitEnemys)
+            {
+                Debug.Log(hitEnemy.gameObject.name+"に攻撃");
+            }
+            
+            anim.SetTrigger("isAttack");
         }
 
         if(Input.GetButtonDown("Fire1"))
@@ -99,7 +104,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected() //攻撃範囲
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackpoint.position, attackRadius);
@@ -113,10 +118,8 @@ public class Player : MonoBehaviour
 
         Vector2 groundPos =  //自分の立っているポジション
         new Vector2(
-            transform.position.x ,
-            transform.position.y
-            );
-
+            transform.position.x ,transform.position.y);
+            
         //地面判定エリア
         Vector2 groundArea = new Vector2(0.5f , 0.4f);
 
