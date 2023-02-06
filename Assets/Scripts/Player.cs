@@ -73,30 +73,37 @@ public class Player : MonoBehaviour
         }
 
        //スプライトの向きを変える
+        Vector3 localEulerAngles = transform.localEulerAngles;
         if(x < 0)
-            {spRenderer.flipX = true;}
-
+        {
+            localEulerAngles.y = 180;
+        }
         else if(x > 0)
-         {spRenderer.flipX = false;}
-        
+        {
+            localEulerAngles.y = 0;
+        } 
+         transform.localEulerAngles = localEulerAngles;
+
         rb2d.AddForce(Vector2.right * x * speed);
 
         //攻撃
+        void Attack()
+        {
+            Debug.Log("攻撃");
+            Collider2D[] hitEnemys = Physics2D.OverlapCircleAll(attackpoint.position, attackRadius, enemyLayer);
+        }
+
         if(Input.GetButtonDown("Fire1"))
         {
             Attack();
         }
-        void Attack()
-        {
-            Debug.Log("攻撃");
-            Collider2D[] hitEnemys = Physics2D.OverlapCircleAll(attackpoint.position,attackRadius,enemyLayer);
-        }
-     void OnDrawGizmosSelected()
+    }
+
+    void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackpoint.position,attackRadius);
+            Gizmos.DrawWireSphere(attackpoint.position, attackRadius);
         }
-    }
 
     void FixedUpdate()
     {
