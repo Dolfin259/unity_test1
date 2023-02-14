@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
             foreach (Collider2D hitEnemy in hitEnemys)
             {
                 Debug.Log(hitEnemy.gameObject.name+"に攻撃");
+                hitEnemy.GetComponent<SkeltonCtrl>().OnDamage();
             }
             
             anim.SetTrigger("isAttack");

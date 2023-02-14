@@ -88,16 +88,16 @@ public class SkeltonCtrl : MonoBehaviour
 
     private void CheckValue(){
       //地面にヒットしていない時、かつ待機状態ではない時
-    if( !gChecker.isGroundHit & !isIdle ){
-          gChecker.isGroundHit = true;
-          StartCoroutine("ChangeRotate");
-      }
+        if( !gChecker.isGroundHit & !isIdle ){
+            gChecker.isGroundHit = true;
+            StartCoroutine("ChangeRotate");
+        }
       
       //敵にヒットしている時、かつ待機状態ではない時
-      if( sChecker.isEnemyHit & !isIdle ){
-          sChecker.isEnemyHit = false;
-          StartCoroutine("ChangeRotate");
-      }
+        if( sChecker.isEnemyHit & !isIdle ){
+            sChecker.isEnemyHit = false;
+            StartCoroutine("ChangeRotate");
+        }
 
       //横判定が地面にヒットしている時、かつ待機状態ではない時
       if( sChecker.isGroundHit & !isIdle ){
@@ -105,6 +105,11 @@ public class SkeltonCtrl : MonoBehaviour
           StartCoroutine("ChangeRotate");
       }
     }
+     //ダメージ
+     public void OnDamage()
+     {
+        anim.SetTrigger("isHit");
+     }
 
     IEnumerator ChangeRotate(){
         isIdle = true;
@@ -112,23 +117,23 @@ public class SkeltonCtrl : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         if( this.transform.eulerAngles.y == 180 ){
-              this.transform.rotation = Quaternion.Euler(0,0,0);
-           }else{
+                this.transform.rotation = Quaternion.Euler(0,0,0);
+            }else{
             this.transform.rotation = Quaternion.Euler(0,180,0);
-           }
+            }
         isIdle = false; 
     }
 
     IEnumerator Attack(){
-        isAttack = true;
-        anim.SetTrigger("TrgAttack");
-        yield return new WaitForSeconds(6.0f);
-        isAttack = false;
+            isAttack = true;
+            anim.SetTrigger("TrgAttack");
+            yield return new WaitForSeconds(6.0f);
+            isAttack = false;
+        }
+        IEnumerator Dead(){
+            isDead = true;
+            anim.SetTrigger("TrgDead");
+            yield return new WaitForSeconds(1.5f);
+        Destroy( this.gameObject );
     }
-    IEnumerator Dead(){
-        isDead = true;
-        anim.SetTrigger("TrgDead");
-        yield return new WaitForSeconds(1.5f);
-       Destroy( this.gameObject );
- }
 }
