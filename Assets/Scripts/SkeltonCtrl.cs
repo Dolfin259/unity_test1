@@ -130,7 +130,7 @@ public class SkeltonCtrl : MonoBehaviour
             yield return new WaitForSeconds(6.0f);
             isAttack = false;
         }
-        IEnumerator Dead(){
+    IEnumerator Dead(){
             isDead = true;
             anim.SetTrigger("TrgDead");
             yield return new WaitForSeconds(1.5f);
