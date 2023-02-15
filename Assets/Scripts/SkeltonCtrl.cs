@@ -14,6 +14,8 @@ public class SkeltonCtrl : MonoBehaviour
 
     public float speed = 10;
 
+    public int hp = 3;
+
     //当たり判定
     private HitChecker sChecker; //横の当たり判定
     private HitChecker gChecker; //地面の当たり判定
@@ -87,28 +89,33 @@ public class SkeltonCtrl : MonoBehaviour
     }
 
     private void CheckValue(){
-      //地面にヒットしていない時、かつ待機状態ではない時
+        //地面にヒットしていない時、かつ待機状態ではない時
         if( !gChecker.isGroundHit & !isIdle ){
             gChecker.isGroundHit = true;
             StartCoroutine("ChangeRotate");
         }
       
-      //敵にヒットしている時、かつ待機状態ではない時
+        //敵にヒットしている時、かつ待機状態ではない時
         if( sChecker.isEnemyHit & !isIdle ){
             sChecker.isEnemyHit = false;
             StartCoroutine("ChangeRotate");
         }
 
-      //横判定が地面にヒットしている時、かつ待機状態ではない時
+        //横判定が地面にヒットしている時、かつ待機状態ではない時
       if( sChecker.isGroundHit & !isIdle ){
           sChecker.isGroundHit = false;
           StartCoroutine("ChangeRotate");
       }
     }
-     //ダメージ
-     public void OnDamage()
+        //ダメージ
+      public void OnDamage(int damage)
      {
+        hp -= damage;
         anim.SetTrigger("isHit");
+        if (hp <= 0)
+        {
+            StartCoroutine("Dead");
+        }
      }
 
     IEnumerator ChangeRotate(){
@@ -131,9 +138,12 @@ public class SkeltonCtrl : MonoBehaviour
             isAttack = false;
         }
     IEnumerator Dead(){
+            hp = 0;
             isDead = true;
             anim.SetTrigger("TrgDead");
             yield return new WaitForSeconds(1.5f);
         Destroy( this.gameObject );
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
     }
 }

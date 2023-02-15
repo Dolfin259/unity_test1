@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     public float speed = 25f;
     public float jumpForce = 750f;
+    public int at = 1; //攻撃力
 
     public Transform attackpoint;
     public float attackRadius;
@@ -93,7 +94,7 @@ public class Player : MonoBehaviour
             foreach (Collider2D hitEnemy in hitEnemys)
             {
                 Debug.Log(hitEnemy.gameObject.name+"に攻撃");
-                hitEnemy.GetComponent<SkeltonCtrl>().OnDamage();
+                hitEnemy.GetComponent<SkeltonCtrl>().OnDamage(at);
             }
             
             anim.SetTrigger("isAttack");
@@ -150,13 +151,8 @@ public class Player : MonoBehaviour
     {
         if( col.gameObject.tag == "Damage" ){
 
-            anim.SetBool("Damage",true);
+            anim.SetTrigger("TrgHit");
 
-            Debug.Log("Damage");
         }
-        else{
-            anim.SetBool ("Damage",false);
-            }
-        
     }
 }

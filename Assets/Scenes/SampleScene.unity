@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  hp: 5
 --- !u!61 &144898757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -487,6 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 25
   jumpForce: 750
+  at: 1
   attackpoint: {fileID: 1479406582}
   attackRadius: 1
   enemyLayer:
