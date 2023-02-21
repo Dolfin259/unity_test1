@@ -489,8 +489,10 @@ MonoBehaviour:
   speed: 25
   jumpForce: 750
   at: 1
+  hp: 5
   attackpoint: {fileID: 1479406582}
   attackRadius: 1
+  enemy: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

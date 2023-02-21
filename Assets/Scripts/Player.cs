@@ -9,11 +9,14 @@ public class Player : MonoBehaviour
     public float speed = 25f;
     public float jumpForce = 750f;
     public int at = 1; //攻撃力
+    public int hp = 5; //HP
+
+    private GameObject enemy;
 
     public Transform attackpoint;
     public float attackRadius;
-    public LayerMask enemyLayer;
 
+    public LayerMask enemyLayer;
     public LayerMask groundLayer;
 
     private Animator anim;
@@ -27,6 +30,8 @@ public class Player : MonoBehaviour
         this.rb2d = GetComponent<Rigidbody2D>();
         this.anim = GetComponent<Animator>();
         this.spRenderer = GetComponent<SpriteRenderer>();
+        enemy = GameObject.FindWithTag("Enemy");
+        
     }
 
     
@@ -112,6 +117,12 @@ public class Player : MonoBehaviour
             Gizmos.DrawWireSphere(attackpoint.position, attackRadius);
         }
 
+    void onDamage(GameObject enemy) //ダメージ処理
+    {
+        hp--;
+        anim.SetTrigger("TrgHit");
+    }
+
     void FixedUpdate()
     {
         isGround = false;
@@ -149,10 +160,13 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D( Collision2D col )
     {
-        if( col.gameObject.tag == "Damage" ){
-
-            anim.SetTrigger("TrgHit");
-
+        if( col.gameObject.tag == "Enemy" )
+        {
+            onDamage(col.gameObject);
+            Debug.Log(gameObject.name+"に接触");
         }
+    
+
     }
+    
 }
