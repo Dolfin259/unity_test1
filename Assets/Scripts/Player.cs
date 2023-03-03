@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     private bool isDead = false;
 
-    public float ControlLostTime; //制御不能になる時間
+    private float ControlLostTime; //制御不能になる時間
     
     void Start()
     {
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         this.anim = GetComponent<Animator>();
         this.spRenderer = GetComponent<SpriteRenderer>();
         enemy = GameObject.FindWithTag("Enemy");
+        int hp = Mathf.Abs(5);
         ControlLostTime = 0f;
         
     }
