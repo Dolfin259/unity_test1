@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     private SpriteRenderer spRenderer;
 
     private bool isGround;
+
+    private bool isDead = false;
+
+    public float ControlLostTime; //制御不能になる時間
     
     void Start()
     {
@@ -31,17 +35,31 @@ public class Player : MonoBehaviour
         this.anim = GetComponent<Animator>();
         this.spRenderer = GetComponent<SpriteRenderer>();
         enemy = GameObject.FindWithTag("Enemy");
+        ControlLostTime = 0f;
         
     }
 
     
     void Update()
     {
+
+        if(isDead)
+        {
+            return;
+        }
+
+        bool ControlTime = ControlLostTime <= 0f; //制御不能時間の時、横移動できない
+        if(ControlTime == false)
+        {
+            float speed = 0f;
+        }
+
         float x = Input.GetAxisRaw("Horizontal"); //キー入力で水平方向移動
 
         anim.SetFloat("Speed",Mathf.Abs(x * speed)); //キー入力があるときだけアニメーション再生
 
-        if(Input.GetButtonDown("Jump") & isGround){
+        if(Input.GetButtonDown("Jump") & isGround & ControlTime)
+        {
             anim.SetBool("isJump",true); //ジャンプアニメーションon
             rb2d.AddForce(Vector2.up * jumpForce);
         }
@@ -77,7 +95,11 @@ public class Player : MonoBehaviour
                 rb2d.velocity = new Vector2( -5.0f , velY );
             }
         }
+
+        if(ControlTime)//制御可能な時のみ速度を加える
+        {
         rb2d.AddForce(Vector2.right * x * speed);
+        }
 
        //スプライトの向きを変える
         Vector3 localEulerAngles = transform.localEulerAngles;
@@ -109,6 +131,16 @@ public class Player : MonoBehaviour
         {
             Attack();
         }
+
+        if(0f < ControlLostTime)
+        {
+            ControlLostTime -= Time.deltaTime;
+            GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.5f);
+        }
+        else
+        {
+         GetComponent<SpriteRenderer>().color = Color.white;  
+        }
     }
 
     void OnDrawGizmosSelected() //攻撃範囲
@@ -120,11 +152,36 @@ public class Player : MonoBehaviour
     void onDamage(GameObject enemy) //ダメージ処理
     {
         hp--;
+        
+        rb2d.velocity = new Vector2(4f , 7f);//ノックバック
+        ControlLostTime = 0.5f;
+
+        Debug.Log($"ダメージを受けました。現在のhp:{hp}");
         anim.SetTrigger("TrgHit");
+
+        if(hp <= 0)
+        {
+            OnDead();
+        }
+    }
+
+    void OnDead()//死亡処理
+    {
+            hp = 0;
+            isDead = true;
+            anim.Play("Knight_Death");
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
     }
 
     void FixedUpdate()
     {
+
+        if(isDead)
+        {
+            return;
+        }
+
         isGround = false;
 
         float x = Input.GetAxisRaw("Horizontal");
@@ -163,10 +220,16 @@ public class Player : MonoBehaviour
         if( col.gameObject.tag == "Enemy" )
         {
             onDamage(col.gameObject);
-            Debug.Log(gameObject.name+"に接触");
+            Debug.Log(col.gameObject.name+"に初めて接触");
         }
-    
-
     }
-    
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+    if (col.gameObject.tag == "Enemy")
+        {
+            Debug.Log(col.gameObject.name + "のTriggerが通過");
+            onDamage(col.gameObject);
+        }
+    }
 }

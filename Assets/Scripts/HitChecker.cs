@@ -20,20 +20,17 @@ public class HitChecker : MonoBehaviour
         if (col.gameObject.name == "StageMap")
         {
             isGroundHit = true;
-            Debug.Log("Ground");
         }
         //プレイヤー判定
         if (col.gameObject.name == "Player")
         {
             isPlayerHit = true;
-            Debug.Log("Player");
         }
 
         //敵判定
         if (col.gameObject.tag == "Enemy")
         {
             isEnemyHit = true;
-            Debug.Log("Enemy");
         }
     }
 

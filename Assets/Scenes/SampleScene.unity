@@ -266,7 +266,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.49486855, y: 1.115728}
@@ -299,7 +299,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1339499, y: 0.89733744}
+  m_Offset: {x: 0.10551256, y: 0.840463}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -310,7 +310,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1048627, y: 1.3928251}
+  m_Size: {x: 0.7067406, y: 1.2790762}
   m_EdgeRadius: 0
 --- !u!58 &144898758
 CircleCollider2D:
@@ -429,7 +429,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197405007}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.78, y: -0.55, z: 0}
+  m_LocalPosition: {x: -4.71, y: -2.93, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -492,7 +492,6 @@ MonoBehaviour:
   hp: 5
   attackpoint: {fileID: 1479406582}
   attackRadius: 1
-  enemy: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
