@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GotoTitle : MonoBehaviour
 {
-    public void ButtonDown()
+    public void OnClickButton()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            SceneManager.LoadScene("Title");
-        }
+        SceneManager.LoadScene("Title");
     }
 
 }

@@ -26,6 +26,10 @@ public class SkeltonCtrl : MonoBehaviour
 
     private bool isDead = false;
 
+    //SE
+    AudioSource audiosource;
+    [SerializeField] AudioClip HitSE;
+
 
     void Start()
     {
@@ -36,6 +40,8 @@ public class SkeltonCtrl : MonoBehaviour
 
         sChecker = transform.Find("sideChecker").gameObject.GetComponent<HitChecker>();//横のチェック
         gChecker = transform.Find("groundChecker").gameObject.GetComponent<HitChecker>();//地面のチェック
+
+        audiosource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -110,11 +116,12 @@ public class SkeltonCtrl : MonoBehaviour
         //ダメージ
       public void OnDamage(int damage)
      {
-        hp -= damage;
-        anim.SetTrigger("isHit");
-        if (hp <= 0)
+            hp -= damage;
+            audiosource.PlayOneShot(HitSE);
+            anim.SetTrigger("isHit");
+            if (hp <= 0)
         {
-            StartCoroutine("Dead");
+        StartCoroutine("Dead");
         }
      }
 

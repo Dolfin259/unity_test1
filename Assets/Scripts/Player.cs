@@ -28,7 +28,14 @@ public class Player : MonoBehaviour
     private bool isDead = false;
 
     private float ControlLostTime; //制御不能になる時間
-    
+
+    //SE
+    AudioSource audiosource;
+    [SerializeField] AudioClip AttackSE;
+    [SerializeField] AudioClip DamageSE;
+    [SerializeField] AudioClip DeadSE;
+    [SerializeField] AudioClip JumpSE;
+   
     void Start()
     {
         this.rb2d = GetComponent<Rigidbody2D>();
@@ -37,9 +44,8 @@ public class Player : MonoBehaviour
         enemy = GameObject.FindWithTag("Enemy");
         int hp = Mathf.Abs(5);
         ControlLostTime = 0f;
-        
+        audiosource = GetComponent<AudioSource>();
     }
-
     
     void Update()
     {
@@ -54,15 +60,16 @@ public class Player : MonoBehaviour
         {
             float speed = 0f;
         }
+            float x = Input.GetAxisRaw("Horizontal"); //キー入力で水平方向移動
 
-        float x = Input.GetAxisRaw("Horizontal"); //キー入力で水平方向移動
-
-        anim.SetFloat("Speed",Mathf.Abs(x * speed)); //キー入力があるときだけアニメーション再生
+            anim.SetFloat("Speed",Mathf.Abs(x * speed)); //キー入力があるときだけアニメーション再生
 
         if(Input.GetButtonDown("Jump") & isGround & ControlTime)
         {
             anim.SetBool("isJump",true); //ジャンプアニメーションon
             rb2d.AddForce(Vector2.up * jumpForce);
+            audiosource.PlayOneShot(JumpSE);
+       
         }
 
         if( isGround ){ //地面にいる時はジャンプアニメーションoff
@@ -126,6 +133,7 @@ public class Player : MonoBehaviour
             }
             
             anim.SetTrigger("isAttack");
+            audiosource.PlayOneShot(AttackSE);
         }
 
         if(Input.GetButtonDown("Fire1"))
@@ -153,12 +161,17 @@ public class Player : MonoBehaviour
     void onDamage(GameObject enemy) //ダメージ処理
     {
         hp--;
-        
-        rb2d.velocity = new Vector2(4f , 7f);//ノックバック
+
+        Debug.Log($"forward:{gameObject.transform.forward}");
+        float knockBackX = gameObject.transform.forward.z < 0f ? 4f : -4f;
+        rb2d.velocity = new Vector2(knockBackX , 7f);//ノックバック
+
         ControlLostTime = 0.5f;
 
         Debug.Log($"ダメージを受けました。現在のhp:{hp}");
         anim.SetTrigger("TrgHit");
+        audiosource.PlayOneShot(DamageSE);
+        
 
         if(hp <= 0)
         {
@@ -168,11 +181,17 @@ public class Player : MonoBehaviour
 
     void OnDead()//死亡処理
     {
-            hp = 0;
-            isDead = true;
-            anim.Play("Knight_Death");
-        GetComponent<BoxCollider2D>().enabled = false;
-        GetComponent<CircleCollider2D>().enabled = false;
+        hp = 0;
+        isDead = true;
+        anim.Play("Knight_Death");
+        audiosource.PlayOneShot(DeadSE);
+
+        Invoke("Destroy",2.5f);//死亡時にウェイトを作る
+    }
+
+    void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 
     void FixedUpdate()
