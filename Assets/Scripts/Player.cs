@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
         int hp = Mathf.Abs(5);
         ControlLostTime = 0f;
         audiosource = GetComponent<AudioSource>();
+        anim.keepAnimatorControllerStateOnDisable = true;
     }
     
     void Update()
