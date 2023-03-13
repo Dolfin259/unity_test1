@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     private float ControlLostTime; //制御不能になる時間
 
+    public GameObject fxhit;
+
     //SE
     AudioSource audiosource;
     [SerializeField] AudioClip AttackSE;
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         int hp = Mathf.Abs(5);
         ControlLostTime = 0f;
         audiosource = GetComponent<AudioSource>();
+        anim.keepAnimatorControllerStateOnDisable = true;
     }
     
     void Update()
@@ -191,7 +194,13 @@ public class Player : MonoBehaviour
 
     void Destroy()
     {
+        Instantiate(fxhit , transform.position , transform. rotation);
         Destroy(this.gameObject);
+    }
+
+    public int GetHP() //HP処理
+    {
+        return_hp;
     }
 
     void FixedUpdate()

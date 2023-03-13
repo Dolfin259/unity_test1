@@ -26,6 +26,8 @@ public class SkeltonCtrl : MonoBehaviour
 
     private bool isDead = false;
 
+    public GameObject fxhit;
+
     //SE
     AudioSource audiosource;
     [SerializeField] AudioClip HitSE;
@@ -149,6 +151,9 @@ public class SkeltonCtrl : MonoBehaviour
             isDead = true;
             anim.SetTrigger("TrgDead");
             yield return new WaitForSeconds(1.5f);
+
+            Instantiate(fxhit , transform.position , transform.rotation);
+
         Destroy( this.gameObject );
         GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
