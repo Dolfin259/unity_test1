@@ -200,7 +200,7 @@ public class Player : MonoBehaviour
 
     public int GetHP() //HP処理
     {
-        return_hp;
+        return hp;
     }
 
     void FixedUpdate()

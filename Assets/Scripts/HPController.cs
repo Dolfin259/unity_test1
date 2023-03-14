@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class HPController: MonoBehaviour
 {
-    [SerializeField.Header("HPアイコン")]
+    [SerializeField,Header("HPアイコン")]
     private GameObject playerIcon;
 
     private Player player;
@@ -21,7 +23,7 @@ public class HPController: MonoBehaviour
     {
         for(int i = 0; i < player.GetHP(); i++)
         { 
-            GameObject playerHPObj = Inastantiate(playerIcon);
+            GameObject playerHPObj = Instantiate(playerIcon);
             playerHPObj.transform.parent = transform;
         }
     }    

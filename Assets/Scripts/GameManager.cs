@@ -6,14 +6,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    
-    void Start()
-    {
 
-    }
+  void Start()
+  {
 
-    void Update()
-    {
-        
-    }
+  }
+
+  void Update()
+  {
+
+  }
+
 }
