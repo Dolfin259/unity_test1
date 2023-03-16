@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 718701449444329130}
   - component: {fileID: 718701449444329133}
   - component: {fileID: 718701449444329132}
-  - component: {fileID: 718701449444329135}
   - component: {fileID: 718701449444329134}
   - component: {fileID: 718701449444329105}
   - component: {fileID: 718701449444329104}
+  - component: {fileID: 4430830392696565249}
   m_Layer: 6
   m_Name: gobrin
   m_TagString: Enemy
@@ -150,22 +150,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &718701449444329135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718701449444329107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30485382dac01504086842c12188018e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  hp: 4
-  fxhit: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
-  HitSE: {fileID: 8300000, guid: 8c36eb7645c308744a8700811287b2c0, type: 3}
 --- !u!58 &718701449444329134
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -304,6 +288,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4430830392696565249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718701449444329107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30485382dac01504086842c12188018e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 13
+  hp: 3
+  fxhit: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
+  HitSE: {fileID: 8300000, guid: 8c36eb7645c308744a8700811287b2c0, type: 3}
 --- !u!1 &718701449852918674
 GameObject:
   m_ObjectHideFlags: 0

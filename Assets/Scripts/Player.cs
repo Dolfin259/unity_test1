@@ -26,7 +26,10 @@ public class Player : MonoBehaviour
     private bool isGround;
 
     private bool isDead = false;
-
+    private bool isContinue = false;
+    private float continueTime = 0.0f;
+    private float blinkTime = 0.0f;
+    
     private float ControlLostTime; //制御不能になる時間
 
     public GameObject fxhit;
@@ -124,6 +127,12 @@ public class Player : MonoBehaviour
         } 
          transform.localEulerAngles = localEulerAngles;
 
+         void OnDrawGizmosSelected() //攻撃範囲
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackpoint.position, attackRadius);
+        }
+
         //攻撃
         void Attack()
         {
@@ -139,27 +148,87 @@ public class Player : MonoBehaviour
             audiosource.PlayOneShot(AttackSE);
         }
 
-        if(Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
+            if(Input.GetButtonDown("Fire1"))
+            {
+                Attack();
+            }
 
-        if(0f < ControlLostTime)
+            if(0f < ControlLostTime)
+            {
+                ControlLostTime -= Time.deltaTime;
+                GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.5f);
+            }
+            else
+            {
+            GetComponent<SpriteRenderer>().color = Color.white;  
+            }
+
+            //コンティニュー
+            if(isContinue)
         {
-            ControlLostTime -= Time.deltaTime;
-            GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.5f);
-        }
-        else
-        {
-         GetComponent<SpriteRenderer>().color = Color.white;  
+            //明滅ついている時に戻る
+            if(blinkTime > 0.2f)
+            {
+                spRenderer.enabled = true;
+                blinkTime = 0.0f;
+            }
+            //明滅消えている時
+            else if(blinkTime > 0.1f)
+            {
+                spRenderer.enabled = false;
+            }
+            //明滅ついているとき
+            else
+            {
+                spRenderer.enabled = true;
+            }
+
+            //1秒たったら明滅終わり
+            if(continueTime > 1.0f)
+            {
+                isContinue = false;
+                blinkTime = 0f;
+                continueTime = 0f;
+                spRenderer.enabled = true;
+            }
+            else
+            {
+                blinkTime += Time.deltaTime;
+                continueTime += Time.deltaTime;
+            }
+
         }
     }
 
-    void OnDrawGizmosSelected() //攻撃範囲
+    public bool IsContinueWaiting()
+    {
+        return IsDeadAnimEnd();
+    }
+
+    //ダウンアニメーションが完了しているかどうか
+    private bool IsDeadAnimEnd()
+    {
+        if(isDead && anim != null)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackpoint.position, attackRadius);
+            AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+            if (currentState.IsName("Knight_Death"))
+            {
+                if(currentState.normalizedTime >= 1)
+                {
+                    return true;
+                }
+            }
         }
+                return false;
+    }
+
+    public void ContinuePlayer()
+    {
+        isDead = false;
+        Instantiate(fxhit , transform.position , transform. rotation);
+        anim.Play("Knight_idle");
+        isContinue = true;
+    }
 
     void onDamage(GameObject enemy) //ダメージ処理
     {
@@ -189,13 +258,7 @@ public class Player : MonoBehaviour
         anim.Play("Knight_Death");
         audiosource.PlayOneShot(DeadSE);
 
-        Invoke("Destroy",2.5f);//死亡時にウェイトを作る
-    }
-
-    void Destroy()
-    {
-        Instantiate(fxhit , transform.position , transform. rotation);
-        Destroy(this.gameObject);
+        Invoke("Destroy",0.5f);//死亡時にウェイトを作る
     }
 
     public int GetHP() //HP処理
@@ -262,3 +325,4 @@ public class Player : MonoBehaviour
         }
     }
 }
+

@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30485382dac01504086842c12188018e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 7
   hp: 4
   fxhit: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
   HitSE: {fileID: 8300000, guid: 8c36eb7645c308744a8700811287b2c0, type: 3}
