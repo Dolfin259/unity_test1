@@ -247,11 +247,11 @@ public class Player : MonoBehaviour
 
         if(hp <= 0)
         {
-            OnDead();
+            onDead();
         }
     }
 
-    void OnDead()//死亡処理
+    void onDead()//死亡処理
     {
         hp = 0;
         isDead = true;
@@ -318,11 +318,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-    if (col.gameObject.tag == "Enemy")
-        {
-            Debug.Log(col.gameObject.name + "のTriggerが通過");
-            onDamage(col.gameObject);
-        }
+        
     }
 }
 
