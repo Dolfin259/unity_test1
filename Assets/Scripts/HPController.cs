@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class HPController: MonoBehaviour
 {
     [SerializeField,Header("HPアイコン")]
-    private GameObject playerIcon;
 
+    private GameObject playerIcon;
     private Player player;
     private int beforeHP;
 

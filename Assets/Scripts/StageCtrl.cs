@@ -10,21 +10,17 @@ public class StageCtrl : MonoBehaviour
 
     private Player p;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     void Start()
     {
         if(playerObj != null && continuePoint != null && continuePoint.Length > 0)
         {
             playerObj.transform.position = continuePoint[0].transform.position;
             p = playerObj.GetComponent<Player>();
-
-            if(p == null)
-            {
-                Debug.Log("プレイヤーじゃない物がアタッチされているよ！");
-            }
-        }
-        else
-        {
-            Debug.Log("設定が足りてないよ！");
         }
     }
 
@@ -36,10 +32,6 @@ public class StageCtrl : MonoBehaviour
             {
                 playerObj.transform.position = continuePoint[GameManager.instance.continueNum].transform.position;
                 p.ContinuePlayer();
-            }
-            else
-            {
-                Debug.Log("コンティニューポイントの設定が足りてないよ！");
             }
         }
     }

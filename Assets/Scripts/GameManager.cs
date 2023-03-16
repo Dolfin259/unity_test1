@@ -4,8 +4,14 @@ using System.Collections;
  public class GameManager : MonoBehaviour
  {
      public static GameManager instance = null;
-     public int stageNum;
-     public int continueNum;
+    
+    [Header("現在のステージ")] public int stageNum;
+    [Header("現在の復帰位置")]public int continueNum;
+    [HideInInspector] public bool isGameOver = false;
+    [HideInInspector] public bool isStageClear = false;
+
+    private AudioSource audiosource = null;
+
 
      private void Awake()
      {
@@ -18,5 +24,22 @@ using System.Collections;
           {
               Destroy(this.gameObject);
           }
+     }
+
+     private void Start()
+     {
+        audiosource = GetComponent<AudioSource>();
+     }
+
+     public void PlaySE(AudioClip clip)
+     {
+        if(audiosource != null)
+        {
+            audiosource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.Log("オーディオソースが設定されていません");
+        }
      }
  }
