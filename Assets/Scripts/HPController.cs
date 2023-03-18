@@ -37,7 +37,7 @@ public class HPController: MonoBehaviour
     {
         if(beforeHP == player.GetHP()) return;
 
-        Image[] icons = transform.GetComponentsInChildren<Image>();
+        Image[] icons = transform.GetComponentsInChildren<Image>(true);
         for(int i = 0; i < icons.Length; i++)
         {
             icons[i].gameObject.SetActive(i < player.GetHP());

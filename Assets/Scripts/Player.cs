@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     public float speed = 25f;
     public float jumpForce = 750f;
     public int at = 1; //攻撃力
-    public int hp = 5; //HP
+    private const int Maxhp = 5;
+    public int hp = Maxhp; //HP
 
     private GameObject enemy;
 
@@ -163,7 +164,7 @@ public class Player : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.white;  
             }
 
-            //コンティニュー
+            //コンティニュー時の点滅
             if(isContinue)
         {
             //明滅ついている時に戻る
@@ -228,6 +229,9 @@ public class Player : MonoBehaviour
         Instantiate(fxhit , transform.position , transform. rotation);
         anim.Play("Knight_idle");
         isContinue = true;
+
+        //HPを最大まで回復させておく
+        hp = Maxhp;
     }
 
     void onDamage(GameObject enemy) //ダメージ処理
