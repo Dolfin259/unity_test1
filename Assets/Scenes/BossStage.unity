@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 1721318114}
   - component: {fileID: 1721318113}
   m_Layer: 0
-  m_Name: SwordChecker
+  m_Name: BladeChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

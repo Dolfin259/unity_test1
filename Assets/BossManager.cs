@@ -21,6 +21,7 @@ public class BossManager : MonoBehaviour
 
     //当たり判定
     private HitChecker sChecker; //遠距離攻撃の当たり判定
+    private HitChecker bChecker; //遠距離攻撃の当たり判定
 
     public GameObject fxhit;
     
@@ -38,6 +39,7 @@ public class BossManager : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player").transform;
         sChecker = transform.Find("ShockWaveChecker").gameObject.GetComponent<HitChecker>();
+        bChecker = transform.Find("BladeChecker").gameObject.GetComponent<HitChecker>();
         audiosource = GetComponent<AudioSource>();
         
     }
