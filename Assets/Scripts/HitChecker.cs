@@ -17,7 +17,7 @@ public class HitChecker : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)//接触した
     {
         //地面判定
-        if (col.gameObject.name == "StageMap")
+        if (col.gameObject.name == "Ground")
         {
             isGroundHit = true;
         }
@@ -26,30 +26,19 @@ public class HitChecker : MonoBehaviour
         {
             isPlayerHit = true;
         }
-
-        //敵判定
-        if (col.gameObject.tag == "Enemy")
-        {
-            isEnemyHit = true;
-        }
     }
 
-    void OnTriggerExit2D( Collider2D col ){
+    void OnTriggerExit2D( Collider2D col )
+    {
 
-        //ステージマップから離れた
-        if( col.gameObject.name == "StageMap"){
+        //地面から離れた
+        if( col.gameObject.name == "Ground"){
             isGroundHit = false;
         }
         //プレイヤーから離れた
          if( col.gameObject.name == "Player"){
             isPlayerHit = false;
         }
-
-        //敵から離れた
-         if( col.gameObject.tag == "Enemy"){
-            isEnemyHit = false;
-        }
-
 
     }
 }

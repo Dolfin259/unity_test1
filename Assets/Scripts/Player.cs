@@ -48,7 +48,6 @@ public class Player : MonoBehaviour
         this.anim = GetComponent<Animator>();
         this.spRenderer = GetComponent<SpriteRenderer>();
         enemy = GameObject.FindWithTag("Enemy");
-        int hp = Mathf.Abs(5);
         ControlLostTime = 0f;
         audiosource = GetComponent<AudioSource>();
         anim.keepAnimatorControllerStateOnDisable = true;
@@ -128,7 +127,7 @@ public class Player : MonoBehaviour
         } 
          transform.localEulerAngles = localEulerAngles;
 
-         void OnDrawGizmosSelected() //攻撃範囲
+        void OnDrawGizmosSelected() //攻撃範囲
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackpoint.position, attackRadius);

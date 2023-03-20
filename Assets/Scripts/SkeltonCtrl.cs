@@ -5,15 +5,11 @@ using UnityEngine;
 public class SkeltonCtrl : MonoBehaviour
 {
     private Animator anim;
-
     private SpriteRenderer spRenderer;
-
     private Rigidbody2D rb2d;
-
     private GameObject player;
 
     public float speed = 10;
-
     public int hp = 3;
 
     //当たり判定
@@ -21,9 +17,7 @@ public class SkeltonCtrl : MonoBehaviour
     private HitChecker gChecker; //地面の当たり判定
 
     private bool isAttack = false;
-
     private bool isIdle = false;
-
     private bool isDead = false;
 
     public GameObject fxhit;
@@ -132,11 +126,14 @@ public class SkeltonCtrl : MonoBehaviour
         
         yield return new WaitForSeconds(2.0f);
 
-        if( this.transform.eulerAngles.y == 180 ){
-                this.transform.rotation = Quaternion.Euler(0,0,0);
-            }else{
+        if( this.transform.eulerAngles.y == 180 )
+        {
+            this.transform.rotation = Quaternion.Euler(0,0,0);
+        }
+        else
+        {
             this.transform.rotation = Quaternion.Euler(0,180,0);
-            }
+        }
         isIdle = false; 
     }
 
