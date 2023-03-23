@@ -264,13 +264,7 @@ public class Player : MonoBehaviour
         Invoke("Destroy",0.5f);//死亡時にウェイトを作る
     }
 
-    void Destroy()
-    {
-        Instantiate(fxhit , transform.position , transform.rotation);
-        Destroy(this.gameObject);
-        GetComponent<BoxCollider2D>().enabled = false;
-        GetComponent<CircleCollider2D>().enabled = false;
-    }
+  
 
     public int GetHP() //HP処理
     {

@@ -26,6 +26,12 @@ public class HitChecker : MonoBehaviour
         {
             isPlayerHit = true;
         }
+
+        //敵判定
+        if (col.gameObject.tag == "Enemy")
+        {
+            isEnemyHit = true;
+        }
     }
 
     void OnTriggerExit2D( Collider2D col )
@@ -40,5 +46,9 @@ public class HitChecker : MonoBehaviour
             isPlayerHit = false;
         }
 
+        //敵から離れた
+         if( col.gameObject.tag == "Enemy"){
+            isEnemyHit = false;
+        }
     }
 }
