@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitChecker : MonoBehaviour
+public class BossAttackChecker : MonoBehaviour
 {
     public bool isGroundHit;
 
@@ -17,7 +17,7 @@ public class HitChecker : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)//接触した
     {
         //地面判定
-        if (col.gameObject.name == "StageMap")
+        if (col.gameObject.name == "Ground")
         {
             isGroundHit = true;
         }
@@ -32,7 +32,7 @@ public class HitChecker : MonoBehaviour
     {
 
         //地面から離れた
-        if( col.gameObject.name == "StageMap"){
+        if( col.gameObject.name == "Ground"){
             isGroundHit = false;
         }
         //プレイヤーから離れた

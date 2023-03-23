@@ -233,7 +233,7 @@ public class Player : MonoBehaviour
         hp = Maxhp;
     }
 
-    void onDamage(GameObject enemy) //ダメージ処理
+    public void onDamage(GameObject enemy) //ダメージ処理
     {
         hp--;
 
@@ -262,6 +262,14 @@ public class Player : MonoBehaviour
         audiosource.PlayOneShot(DeadSE);
 
         Invoke("Destroy",0.5f);//死亡時にウェイトを作る
+    }
+
+    void Destroy()
+    {
+        Instantiate(fxhit , transform.position , transform.rotation);
+        Destroy(this.gameObject);
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
     }
 
     public int GetHP() //HP処理

@@ -121,7 +121,8 @@ public class SkeltonCtrl : MonoBehaviour
         }
      }
 
-    IEnumerator ChangeRotate(){
+    IEnumerator ChangeRotate()
+    {
         isIdle = true;
         
         yield return new WaitForSeconds(2.0f);
