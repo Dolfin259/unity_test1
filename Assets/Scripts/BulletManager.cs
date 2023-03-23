@@ -14,11 +14,6 @@ public class BulletManager : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
-        {
-            Player player = collision.GetComponent<Player>();
-            player.onDamage(GameObject enemy);
-        }
-        Destroy(gameObject);
+       
     }
 }

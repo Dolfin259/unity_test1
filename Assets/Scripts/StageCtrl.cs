@@ -5,6 +5,9 @@ using UnityEngine;
 public class StageCtrl : MonoBehaviour
 {
 
+    public static StageCtrl instance = null;
+    
+
     [Header("プレイヤーゲームオブジェクト")] public GameObject playerObj;
     [Header("コンティニュー位置")] public GameObject[] continuePoint;
 
@@ -12,7 +15,15 @@ public class StageCtrl : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        if (instance == null)
+          {
+              instance = this;
+              DontDestroyOnLoad(this.gameObject);
+          }
+          else
+          {
+              Destroy(this.gameObject);
+          }
     }
 
     void Start()

@@ -6,9 +6,10 @@ public class BossManager : MonoBehaviour
 {
     Rigidbody2D rb2d;
     Animator anim;
+    SpriteRenderer spRenderer;
+    
 
     public float speed = 3;
-    public int jumpForce = 50;
     public int hp = 10;
     public GameObject ShockWavePrefab;
     public Transform ShotPoint; 
@@ -27,10 +28,10 @@ public class BossManager : MonoBehaviour
     
     //SE
     AudioSource audiosource;
-    [SerializeField] AudioClip AttackSE;
-    [SerializeField] AudioClip DamageSE;
+    [SerializeField] AudioClip Attack1SE;//遠距離攻撃SE
+    [SerializeField] AudioClip Attack2SE;//近距離攻撃SE
+    [SerializeField] AudioClip HitSE;
     [SerializeField] AudioClip DeadSE;
-    [SerializeField] AudioClip JumpSE;
    
 
     void Start()
@@ -40,7 +41,9 @@ public class BossManager : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
         sChecker = transform.Find("ShockWaveChecker").gameObject.GetComponent<HitChecker>();
         bChecker = transform.Find("BladeChecker").gameObject.GetComponent<HitChecker>();
-        audiosource = GetComponent<AudioSource>();   
+        audiosource = GetComponent<AudioSource>();  
+        spRenderer = GetComponent<SpriteRenderer>();
+        rb2d = GetComponent<Rigidbody2D>(); 
     }
 
     public enum BossAttackType
@@ -56,11 +59,13 @@ public class BossManager : MonoBehaviour
     {
         anim.SetTrigger("isAttack1");
         Instantiate(ShockWavePrefab,ShotPoint.position,transform.rotation);
+        audiosource.PlayOneShot(Attack1SE);
     }
 
     void Attack2()//近距離攻撃
     {
         anim.SetTrigger("isAttack2");
+        audiosource.PlayOneShot(Attack2SE);
     }
 
     //実行する攻撃のタイプを設定
@@ -137,6 +142,29 @@ public class BossManager : MonoBehaviour
                 rb2d.velocity = new Vector2( -4f , velY );
             }
         }
+    }
+    void OnDamage(int damage)
+    {
+        hp -= damage;
+            audiosource.PlayOneShot(HitSE);
+            anim.SetTrigger("TrgHit");
+            if (hp <= 0)
+        {
+        StartCoroutine("Dead");
+        }
+    }
+    IEnumerator Dead(){
+            hp = 0;
+            isDead = true;
+            anim.SetTrigger("TrgDead");
+            audiosource.PlayOneShot(DeadSE);
+            yield return new WaitForSeconds(0.5f);
+
+            Instantiate(fxhit , transform.position , transform.rotation);
+
+        Destroy( this.gameObject );
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
     }
 }
 
