@@ -17,7 +17,7 @@ public class BossAttackTrigger : MonoBehaviour
         {
             if(bossManager != null)
             {
-                Debug.Log("ボス攻撃判定がプレイヤーに触れました:{attackType}");
+                Debug.Log($"ボス攻撃判定がプレイヤーに触れました:{attackType}");
                 bossManager.SetAttackType(attackType);
             }
         }
