@@ -9,11 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 987583f9c61d3fb41b18bc25a1c75988
   - enabled: 1
+    path: Assets/Scenes/Prologue.unity
+    guid: 1a7372f77791ba743976f6c2ec15aece
+  - enabled: 1
     path: Assets/Scenes/Main1.unity
     guid: 8002c364869dafb41b9d265ae89057ac
   - enabled: 1
     path: Assets/Scenes/BossStage.unity
     guid: 1584ae2c37687cd428851f4be66da150
+  - enabled: 1
+    path: Assets/Scenes/Epilogue.unity
+    guid: 4d41541ead5c2c94d9a81eb0599de3ad
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 20eed778113b4c14bb9892ac4aa661c5
