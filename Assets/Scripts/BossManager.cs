@@ -76,6 +76,11 @@ public class BossManager : MonoBehaviour
 
     void Update()
     {
+        if(isDead)
+        {
+            return;
+        }
+
         float x = rb2d.velocity.x;
         ChangeRotate();
 
@@ -126,6 +131,10 @@ public class BossManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(isDead)
+        {
+            return;
+        }
 
         Movement();
 
@@ -143,11 +152,10 @@ public class BossManager : MonoBehaviour
             }
         }
     }
-    void OnDamage(int damage)
+
+    public void OnDamage(int damage)
     {
         hp -= damage;
-        float knockBackX = gameObject.transform.forward.z < 0f ? 4f : -4f;
-        rb2d.velocity = new Vector2(knockBackX , 7f);//ノックバック
         audiosource.PlayOneShot(HitSE);
         anim.SetTrigger("TrgHit");
 
@@ -156,19 +164,19 @@ public class BossManager : MonoBehaviour
         StartCoroutine("Dead");
         }
     }
+
     IEnumerator Dead()
     {
-            hp = 0;
-            isDead = true;
-            anim.SetTrigger("TrgDead");
-            audiosource.PlayOneShot(DeadSE);
-            yield return new WaitForSeconds(0.5f);
+        hp = 0;
+        isDead = true;
+        anim.Play("Knight_Death");
+        audiosource.PlayOneShot(DeadSE);
+        yield return new WaitForSeconds(3f);
 
-            Instantiate(fxhit , transform.position , transform.rotation);
+        Instantiate(fxhit , transform.position , transform.rotation);
 
         Destroy( this.gameObject );
-        GetComponent<BoxCollider2D>().enabled = false;
-        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
     }
 }
 

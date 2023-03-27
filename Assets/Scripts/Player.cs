@@ -139,7 +139,20 @@ public class Player : MonoBehaviour
             foreach (Collider2D hitEnemy in hitEnemys)
             {
                 Debug.Log(hitEnemy.gameObject.name+"に攻撃");
-                hitEnemy.GetComponent<SkeltonCtrl>().OnDamage(at);
+
+                var skeltonCtrl = hitEnemy.GetComponent<SkeltonCtrl>();
+                if (skeltonCtrl != null)
+                {
+                    skeltonCtrl.OnDamage(at);
+                }
+                else
+                {
+                var bossCtrl = hitEnemy.GetComponent<BossManager>();
+                    if (bossCtrl != null)
+                    {
+                        bossCtrl.OnDamage(at);
+                    }
+                }
             }
             
             anim.SetTrigger("isAttack");
@@ -261,8 +274,6 @@ public class Player : MonoBehaviour
 
         Invoke("Destroy",0.5f);//死亡時にウェイトを作る
     }
-
-  
 
     public int GetHP() //HP処理
     {
