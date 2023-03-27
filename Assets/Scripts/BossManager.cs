@@ -57,6 +57,10 @@ public class BossManager : MonoBehaviour
 
     void Attack1()//遠距離攻撃
     {
+        if(isDead)
+        {
+            return;
+        }
         anim.SetTrigger("isAttack1");
         Instantiate(ShockWavePrefab,ShotPoint.position,transform.rotation,gameObject.transform);
         audiosource.PlayOneShot(Attack1SE);
@@ -64,6 +68,10 @@ public class BossManager : MonoBehaviour
 
     void Attack2()//近距離攻撃
     {
+        if(isDead)
+        {
+            return;
+        }
         anim.SetTrigger("isAttack2");
         audiosource.PlayOneShot(Attack2SE);
     }
