@@ -489,7 +489,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4267744646239177351}
         m_TargetAssemblyTypeName: TransitionScene, Assembly-CSharp
-        m_MethodName: OnSceneTransitionToMain
+        m_MethodName: OnSceneTransitionToPrologue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -750,7 +750,7 @@ RectTransform:
   m_GameObject: {fileID: 1371582884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.7, y: 5, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1023902251}
@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4245283, g: 0.33107865, b: 0.33107865, a: 1}
+  m_Color: {r: 0.33962262, g: 0.075827666, b: 0.1501361, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -783,11 +783,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 58b647c5b2ec4184e9a07a561cdf0644, type: 3}
-    m_FontSize: 30
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

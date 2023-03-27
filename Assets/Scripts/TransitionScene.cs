@@ -5,10 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class TransitionScene : MonoBehaviour
 {
+
+    public void OnSceneTransitionToPrologue()
+    {
+        FadeIOManager.instance.FadeOutToIn();
+        SceneManager.LoadScene("Prologue");
+        
+    }
+
     public void OnSceneTransitionToMain()
     {
         FadeIOManager.instance.FadeOutToIn();
         SceneManager.LoadScene("Main1");
+    }
+
+     public void OnSceneTransitionToEpilogue()
+    {
+        FadeIOManager.instance.FadeOutToIn();
+        SceneManager.LoadScene("Epilogue");
     }
 
     public void OnSceneTransitionToBoss()

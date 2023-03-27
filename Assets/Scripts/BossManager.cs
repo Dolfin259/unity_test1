@@ -58,7 +58,7 @@ public class BossManager : MonoBehaviour
     void Attack1()//遠距離攻撃
     {
         anim.SetTrigger("isAttack1");
-        Instantiate(ShockWavePrefab,ShotPoint.position,transform.rotation);
+        Instantiate(ShockWavePrefab,ShotPoint.position,transform.rotation,gameObject.transform);
         audiosource.PlayOneShot(Attack1SE);
     }
 
@@ -87,14 +87,14 @@ public class BossManager : MonoBehaviour
 
             case BossAttackType.ShockWave:
             //遠距離攻撃
-            Invoke("Attack1",1);
+            Invoke("Attack1",1.5f);
             //攻撃が済んだので何もしない状態に戻る
             currentAttackType = BossAttackType.None;
             break;
 
             case BossAttackType.Blade:
             //近距離攻撃
-            Invoke("Attack2",1);
+            Invoke("Attack2",2);
             //攻撃が済んだので何もしない状態に戻る
             currentAttackType = BossAttackType.None;
             break;
@@ -146,14 +146,18 @@ public class BossManager : MonoBehaviour
     void OnDamage(int damage)
     {
         hp -= damage;
-            audiosource.PlayOneShot(HitSE);
-            anim.SetTrigger("TrgHit");
-            if (hp <= 0)
+        float knockBackX = gameObject.transform.forward.z < 0f ? 4f : -4f;
+        rb2d.velocity = new Vector2(knockBackX , 7f);//ノックバック
+        audiosource.PlayOneShot(HitSE);
+        anim.SetTrigger("TrgHit");
+
+        if (hp <= 0)
         {
         StartCoroutine("Dead");
         }
     }
-    IEnumerator Dead(){
+    IEnumerator Dead()
+    {
             hp = 0;
             isDead = true;
             anim.SetTrigger("TrgDead");

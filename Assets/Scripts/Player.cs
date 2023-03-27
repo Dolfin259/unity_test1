@@ -67,7 +67,6 @@ public class Player : MonoBehaviour
             float speed = 0f;
         }
             float x = Input.GetAxisRaw("Horizontal"); //キー入力で水平方向移動
-
             anim.SetFloat("Speed",Mathf.Abs(x * speed)); //キー入力があるときだけアニメーション再生
 
         if(Input.GetButtonDown("Jump") & isGround & ControlTime)
@@ -75,7 +74,6 @@ public class Player : MonoBehaviour
             anim.SetBool("isJump",true); //ジャンプアニメーションon
             rb2d.AddForce(Vector2.up * jumpForce);
             audiosource.PlayOneShot(JumpSE);
-       
         }
 
         if( isGround ){ //地面にいる時はジャンプアニメーションoff
@@ -319,11 +317,6 @@ public class Player : MonoBehaviour
             onDamage(col.gameObject);
             Debug.Log(col.gameObject.name+"に初めて接触");
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        
     }
 }
 
