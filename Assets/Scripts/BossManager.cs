@@ -8,17 +8,15 @@ public class BossManager : MonoBehaviour
     Animator anim;
     SpriteRenderer spRenderer;
     
-
     public float speed = 3;
     public int hp = 10;
     public GameObject ShockWavePrefab;
     public Transform ShotPoint; 
-
-    Transform player;
     public LayerMask GroundLayer;
 
-    private bool isDead;
-    
+    public bool isDead;
+
+    Transform player;
 
     //当たり判定
     private HitChecker sChecker; //遠距離攻撃の当たり判定
@@ -44,6 +42,7 @@ public class BossManager : MonoBehaviour
         audiosource = GetComponent<AudioSource>();  
         spRenderer = GetComponent<SpriteRenderer>();
         rb2d = GetComponent<Rigidbody2D>(); 
+        isDead = false;
     }
 
     public enum BossAttackType
@@ -183,8 +182,10 @@ public class BossManager : MonoBehaviour
 
         Instantiate(fxhit , transform.position , transform.rotation);
 
-        Destroy( this.gameObject );
+        Destroy(this.gameObject);
         GetComponent<CapsuleCollider2D>().enabled = false;
+
+        TransitionScene.instance.OnSceneTransitionToEpilogue();
     }
 }
 

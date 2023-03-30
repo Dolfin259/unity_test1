@@ -5,6 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class TransitionScene : MonoBehaviour
 {
+    public static TransitionScene instance;
+    
+
+    public void Awake()
+    {
+        if(instance == null)
+        {
+        instance = this;
+        }
+    }
 
     public void OnSceneTransitionToPrologue()
     {
@@ -20,9 +30,9 @@ public class TransitionScene : MonoBehaviour
     }
 
      public void OnSceneTransitionToEpilogue()
-    {
+    { 
         FadeIOManager.instance.FadeOutToIn();
-        SceneManager.LoadScene("Epilogue");
+        SceneManager.LoadScene("Epilogue"); 
     }
 
     public void OnSceneTransitionToBoss()
