@@ -21,6 +21,8 @@ public class StageCtrl : MonoBehaviour
             playerObj.transform.position = continuePoint[0].transform.position;
             p = playerObj.GetComponent<Player>();
         }
+        //チェックポイントの数を初期化
+        GameManager.instance.continueNum = 0;
     }
 
     void Update()

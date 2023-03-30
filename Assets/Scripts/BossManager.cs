@@ -184,8 +184,7 @@ public class BossManager : MonoBehaviour
 
         Destroy(this.gameObject);
         GetComponent<CapsuleCollider2D>().enabled = false;
-
-        TransitionScene.instance.OnSceneTransitionToEpilogue();
+        TransitionScene.instance.OnSceneTransitionToEpilogue(); 
     }
 }
 
