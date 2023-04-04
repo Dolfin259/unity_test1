@@ -196,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3612314242892162967, guid: ec9d15febf31e184dad1a76ab92fd484, type: 3}
       propertyPath: attackRadius
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec9d15febf31e184dad1a76ab92fd484, type: 3}
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  hp: 1
+  hp: 15
   ShockWavePrefab: {fileID: 3462554462901515369, guid: e2283858cdd8e8d43a6e2e8761cb9575, type: 3}
   ShotPoint: {fileID: 1405350325}
   GroundLayer:

@@ -88,9 +88,15 @@ public class PrologueManager : MonoBehaviour
         else
         {
             if (!ShowNextPage())
-                // UnityエディタのPlayモードを終了する
-                UnityEditor.EditorApplication.isPlaying = false;
+                //最後の文字を表示したらシーン遷移
+            StartCoroutine("SceneChange");
         }
+    }
+    
+    IEnumerator SceneChange()
+    {
+        yield return new WaitForSeconds(2f);
+        TransitionScene.instance.OnSceneTransitionToMain();
     }
 
     private IEnumerator ShowChars(float wait)

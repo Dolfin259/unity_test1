@@ -11,15 +11,14 @@ public class TransitionScene : MonoBehaviour
     {
         if(instance == null)
         {
-        instance = this;
+            instance = this;
         }
     }
 
     public void OnSceneTransitionToPrologue()
     {
         FadeIOManager.instance.FadeOutToIn();
-        SceneManager.LoadScene("Prologue");
-        
+        SceneManager.LoadScene("Prologue");    
     }
 
     public void OnSceneTransitionToMain()

@@ -138,22 +138,25 @@ public class SkeltonCtrl : MonoBehaviour
         isIdle = false; 
     }
 
-    IEnumerator Attack(){
-            isAttack = true;
-            anim.SetTrigger("TrgAttack");
-            yield return new WaitForSeconds(6.0f);
-            isAttack = false;
-        }
-    IEnumerator Dead(){
-            hp = 0;
-            isDead = true;
-            anim.SetTrigger("TrgDead");
-            yield return new WaitForSeconds(1.5f);
-
-            Instantiate(fxhit , transform.position , transform.rotation);
-
-        Destroy( this.gameObject );
+    IEnumerator Attack()
+    {
+        isAttack = true;
+        anim.SetTrigger("TrgAttack");
+        yield return new WaitForSeconds(6.0f);
+        isAttack = false;
+    }
+    
+    IEnumerator Dead()
+    {
+        hp = 0;
+        isDead = true;
+        anim.SetTrigger("TrgDead");
         GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
+        yield return new WaitForSeconds(1.5f);
+
+        Instantiate(fxhit , transform.position , transform.rotation);
+
+        Destroy( this.gameObject );  
     }
 }
